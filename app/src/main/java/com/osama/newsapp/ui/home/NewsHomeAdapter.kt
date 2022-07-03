@@ -13,6 +13,8 @@ import java.util.*
 internal class NewsHomeAdapter : RecyclerView.Adapter<NewsHomeAdapter.NewsViewHolder>() {
     private var _articles: List<NewsDomainModel.Article> = emptyList()
 
+    private var listener: ((NewsDomainModel.Article) -> Unit)? = null
+
     fun setData(articles: List<NewsDomainModel.Article>) {
         _articles = articles
         notifyDataSetChanged()
@@ -30,9 +32,16 @@ internal class NewsHomeAdapter : RecyclerView.Adapter<NewsHomeAdapter.NewsViewHo
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         holder.bind(_articles[position])
+        holder.itemView.setOnClickListener {
+            listener?.invoke(_articles[position])
+        }
     }
 
     override fun getItemCount(): Int = _articles.size
+
+    fun setListener(listener: ((NewsDomainModel.Article) -> Unit)?) {
+        this.listener = listener
+    }
 
     internal inner class NewsViewHolder(private val newsItemCardViewBinding: NewsItemCardViewBinding) :
         RecyclerView.ViewHolder(newsItemCardViewBinding.root) {
