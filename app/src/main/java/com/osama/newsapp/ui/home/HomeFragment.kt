@@ -4,12 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.osama.newsapp.R
 import com.osama.newsapp.databinding.FragmentHomeBinding
+import com.osama.newsapp.ui.home.ArticleDetailsFragment.Companion.ARTICLE
+import com.osama.newsapp.ui.home.ArticleDetailsFragment.Companion.ARTICLE_DETAILS_BUNDLE
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -45,6 +50,14 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+        }
+        newsHomeAdapter.setListener {
+            setFragmentResult(ARTICLE_DETAILS_BUNDLE, bundleOf(ARTICLE to it))
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, ArticleDetailsFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
         }
     }
 
