@@ -1,7 +1,6 @@
 package com.osama.newsapp.di
 
 import com.osama.domain.usecase.GetNews
-import com.osama.newsapp.ui.dashboard.DashboardViewModel
 import com.osama.newsapp.ui.home.HomeViewModel
 import com.osama.newsapp.ui.notifications.NotificationsViewModel
 import dagger.Module
@@ -17,9 +16,6 @@ class ViewModelsModule {
     fun provideHomeViewModel(
         getNews: GetNews,
     ) = HomeViewModel(getNews)
-
-    @Provides
-    fun provideDashboardViewModel() = DashboardViewModel()
 
     @Provides
     fun provideNotificationsViewModel() = NotificationsViewModel()
