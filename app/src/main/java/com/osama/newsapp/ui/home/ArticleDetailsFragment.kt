@@ -1,11 +1,19 @@
 package com.osama.newsapp.ui.home
 
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
 import android.text.format.DateUtils
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import coil.load
@@ -61,8 +69,39 @@ class ArticleDetailsFragment : Fragment() {
             )
             articleDescription.text =
                 Html.fromHtml(article.description, Html.FROM_HTML_MODE_COMPACT)
-            articleContent.text = Html.fromHtml(article.content, Html.FROM_HTML_MODE_COMPACT)
+
+            articleContent.movementMethod = LinkMovementMethod.getInstance()
+            articleContent.setText(makeLinks(), TextView.BufferType.SPANNABLE)
         }
+    }
+
+    private fun makeLinks(): SpannableString {
+        val clickableSpan = object : ClickableSpan() {
+            override fun updateDrawState(ds: TextPaint) {
+                ds.color = R.color.purple_700     // setup color
+                ds.isUnderlineText = false // remove underline
+            }
+
+            override fun onClick(view: View) {
+                val builder = CustomTabsIntent.Builder()
+                val customTabsIntent = builder.build()
+                customTabsIntent.launchUrl(requireContext(), Uri.parse(article.url))
+
+            }
+        }
+
+        val stringSpan = SpannableString(article.content)
+        if (stringSpan.isNotEmpty()) {
+            article.content?.let {
+                stringSpan.setSpan(
+                    clickableSpan,
+                    it.indexOf('['),
+                    it.indexOf(']'),
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+            }
+        }
+        return stringSpan
     }
 
     override fun onDestroyView() {
