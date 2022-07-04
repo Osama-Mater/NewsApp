@@ -1,22 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground"
+    android:fitsSystemWindows="true"
     tools:context=".ui.home.ArticleDetailsFragment">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/purple_500"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/small">
+
+            <ImageView
+                android:id="@+id/articleImage"
+                android:layout_width="0dp"
+                android:layout_height="194dp"
+                android:paddingBottom="@dimen/medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_image" />
+
+            <TextView
+                android:id="@+id/articleTitle"
+                style="@style/TextAppearance.MdcTypographyStyles.Headline5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/articleImage"
+                tools:text="Russia Claims Control of Luhansk as Ukrainian Forces Retreat From Lysychansk" />
+
+            <TextView
+                android:id="@+id/articleAuthor"
+                style="@style/TextAppearance.MdcTypographyStyles.Overline"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/articleTitle"
+                tools:text="Ann M. Simmons in Moscow and Ian Lovett in London" />
+
+            <TextView
+                android:id="@+id/articleSource"
+                style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/small"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/articleAuthor"
+                tools:text="The Wall Street Journal" />
+
+            <TextView
+                android:id="@+id/articlePublishedTime"
+                style="@style/TextAppearance.MdcTypographyStyles.Caption"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/articleSource"
+                tools:text="2 days ago" />
+
+            <TextView
+                android:id="@+id/articleDescription"
+                style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/articlePublishedTime"
+                tools:text="Russia Claims Control of Luhansk as Ukrainian Forces Retreat From Lysychansk  The Wall Street Journal\nUkraine War: Lysychansk, the last remaining Eastern stronghold, could soon fall, Zelenskyy advisor predicts  Fox News\nRussia says…" />
+
+            <TextView
+                android:id="@+id/articleContent"
+                style="@style/TextAppearance.MdcTypographyStyles.Body2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/articleDescription"
+                tools:text="Russian forces have captured Lysychansk, the last major Ukrainian stronghold in Luhansk, effectively placing under Russian control the eastern region at the center of the war in recent months.\nRussi… [+249 chars]" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
