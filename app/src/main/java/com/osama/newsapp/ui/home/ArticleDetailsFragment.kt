@@ -50,7 +50,8 @@ class ArticleDetailsFragment : Fragment() {
                 error(R.drawable.ic_image)
                 fallback(R.drawable.ic_image)
             }
-            articleTitle.text = article.title
+            articleTitle.text =
+                article.title.replaceAfter('-', "").replaceFirst('-', ' ', true)
             articleAuthor.text = article.author
             articleSource.text = article.source.name
             articlePublishedTime.text = DateUtils.getRelativeTimeSpanString(

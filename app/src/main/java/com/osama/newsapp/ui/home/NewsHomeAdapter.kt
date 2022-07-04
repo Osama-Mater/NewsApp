@@ -52,7 +52,7 @@ internal class NewsHomeAdapter : RecyclerView.Adapter<NewsHomeAdapter.NewsViewHo
                     error(R.drawable.ic_image)
                     fallback(R.drawable.ic_image)
                 }
-                articleTitle.text = article.title
+                articleTitle.text = article.title.replaceAfter('-', "").replaceFirst('-', ' ', true)
                 publishedTime.text = DateUtils.getRelativeTimeSpanString(
                     article.publishedAt.time,
                     Calendar.getInstance().timeInMillis,
